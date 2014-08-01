@@ -57,9 +57,11 @@
 			else {
 				parent.find('.multiselectable-shift').removeClass('multiselectable-shift');
 			}
-
+			
 			if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
-				parent.find('.multiselectable-previous').removeClass('multiselectable-previous');
+				// no - selection is global, not local
+				// parent.find('.multiselectable-previous').removeClass('multiselectable-previous');
+				$('.multiselectable-previous').removeClass('multiselectable-previous');
 				if (!item.hasClass(options.selectedClass)) {
 					parent.find('.' + options.selectedClass).removeClass(options.selectedClass);
 					item.addClass(options.selectedClass).addClass('multiselectable-previous');
@@ -81,8 +83,11 @@
 
 			// If item wasn't draged and is not multiselected, it should reset selection for other items.
 			if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
-				parent.find('.multiselectable-previous').removeClass('multiselectable-previous');
-				parent.find('.' + options.selectedClass).removeClass(options.selectedClass);
+				// no - selection is global, not local
+				// parent.find('.multiselectable-previous').removeClass('multiselectable-previous');
+				// parent.find('.' + options.selectedClass).removeClass(options.selectedClass);
+				$('.multiselectable-previous').removeClass('multiselectable-previous');
+				$('.' + options.selectedClass).removeClass(options.selectedClass);
 				item.addClass(options.selectedClass).addClass('multiselectable-previous');
 				if (item.not('.child').length) {
 					item.nextUntil(':not(.child)').addClass(options.selectedClass);
