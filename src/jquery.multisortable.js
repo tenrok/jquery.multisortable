@@ -187,7 +187,12 @@
 
 				settings.start(event, ui);
 			};
-
+			
+			options.beforeStop = function(event, ui) {
+				settings.beforeStop.call(this, event, ui);
+				regroup(ui.item, ui.item.parent());
+			};
+			
 			options.stop = function(event, ui) {
 				regroup(ui.item, ui.item.parent());
 				settings.stop(event, ui);
@@ -246,6 +251,7 @@
 
 	$.fn.multisortable.defaults = {
 		start: function(event, ui) {},
+		beforeStop: function(event, ui) {},
 		stop: function(event, ui) {},
 		sort: function(event, ui) {},
 		receive: function(event, ui) {},
