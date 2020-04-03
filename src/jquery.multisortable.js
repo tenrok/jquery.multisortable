@@ -7,6 +7,11 @@
  * multi-selectable, multi-sortable jQuery plugin
  */
 
+/**
+ * jquery.multisortable.js
+ * https://github.com/tenrok/jquery.multisortable forked from https://github.com/FeepingCreature/jquery.multisortable
+ */
+
 !function($) {
 
 	$.fn.multiselectable = function(options) {
@@ -16,6 +21,11 @@
 		options = $.extend({}, $.fn.multiselectable.defaults, options);
 
 		function mouseDown(e) {
+			// Prevent right mouse button down
+			if (e.which === 3) {
+				return false;
+			}
+
 			var item = $(this),
 				parent = item.parent(),
 				myIndex = item.index();
