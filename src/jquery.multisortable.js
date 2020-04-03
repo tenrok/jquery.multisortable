@@ -1,13 +1,4 @@
 /**
- * jquery.multisortable.js - v0.2
- * https://github.com/shvetsgroup/jquery.multisortable
- *
- * Author: Ethan Atlakson, Jay Hayes, Gabriel Such, Alexander Shvets
- * Last Revision 3/16/2012
- * multi-selectable, multi-sortable jQuery plugin
- */
-
-/**
  * jquery.multisortable.js
  * https://github.com/tenrok/jquery.multisortable forked from https://github.com/FeepingCreature/jquery.multisortable
  */
@@ -15,10 +6,7 @@
 !function($) {
 
 	$.fn.multiselectable = function(options) {
-		if (!options) {
-			options = {}
-		}
-		options = $.extend({}, $.fn.multiselectable.defaults, options);
+		options = $.extend({}, $.fn.multiselectable.defaults, options || {});
 
 		function mouseDown(e) {
 			// Prevent right mouse button down
@@ -89,7 +77,7 @@
 				return;
 			}
 
-			var item = $(this),	parent = item.parent();
+			var item = $(this), parent = item.parent();
 
 			// If item wasn't draged and is not multiselected, it should reset selection for other items.
 			if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
@@ -128,9 +116,7 @@
 
 
 	$.fn.multisortable = function(options) {
-		if (!options) {
-			options = {}
-		}
+		options = options || {};
 		var settings = $.extend({}, $.fn.multisortable.defaults, options);
 
 		function regroup(item, list) {
@@ -164,7 +150,10 @@
 				setTimeout(function() {
 					itemsAfter.add(itemsBefore).addClass(settings.selectedClass);
 				}, 0);
+
+				itemsBefore.add(item).add(itemsAfter);
 			}
+			return item;
 		}
 
 		return this.each(function() {
@@ -204,7 +193,7 @@
 			};
 			
 			options.stop = function(event, ui) {
-				regroup(ui.item, ui.item.parent());
+				ui.item = regroup(ui.item, ui.item.parent());
 				settings.stop(event, ui);
 			};
 
@@ -251,8 +240,13 @@
 			};
 
 			options.receive = function(event, ui) {
-				regroup(ui.item, ui.sender);
+				ui.item = regroup(ui.item, ui.sender);
 				settings.receive(event, ui);
+			};
+
+			options.update = function(event, ui) {
+				ui.item = regroup(ui.item, ui.item.parent());
+				settings.update(event, ui);
 			};
 
 			list.sortable(options).disableSelection();
@@ -265,6 +259,7 @@
 		stop: function(event, ui) {},
 		sort: function(event, ui) {},
 		receive: function(event, ui) {},
+		update: function(event, ui) {},
 		click: function(event, elem) {},
 		mousedown: function(event, elem) {},
 		selectedClass: 'selected',
