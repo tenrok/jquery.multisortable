@@ -151,7 +151,7 @@
 					itemsAfter.add(itemsBefore).addClass(settings.selectedClass);
 				}, 0);
 
-				itemsBefore.add(item).add(itemsAfter);
+				return itemsBefore.add(item).add(itemsAfter);
 			}
 			return item;
 		}
