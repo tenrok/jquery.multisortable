@@ -6,6 +6,8 @@ Extension of [jQuery UI Sortable](http://jqueryui.com/sortable/), which works wi
 
 http://jsfiddle.net/neochief/KWeMM/
 
+http://jsfiddle.net/ktdr9sjc/
+
 ## Usage
 
 ```
